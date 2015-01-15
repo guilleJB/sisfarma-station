@@ -1,2 +1,2 @@
 # sisfarma-station
-Docker sisfarma station for symfony2
+Docker station compatible with symfony2.1
