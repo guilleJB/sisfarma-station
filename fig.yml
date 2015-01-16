@@ -7,6 +7,8 @@ mysql:
         - MYSQL_PASSWORD=sis
     ports:
         - "3306:3306"
+    expose:
+        - 3306
     volumes:
         - /opt/data:/var/lib/mysql
 
@@ -17,3 +19,5 @@ apache:
     volumes:
         - /var/www:/var/www
         - ./lam/apache-conf:/etc/apache2/conf.d
+    links:
+        - mysql
