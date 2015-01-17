@@ -1,12 +1,12 @@
 mysql:
     image: mysql:5.5
     environment:
-        - MYSQL_ROOT_PASSWORD=test
-        - MYSQL_DATABASE=sisfarma
-        - MYSQL_USER=sis
-        - MYSQL_PASSWORD=sis
+        - MYSQL_ROOT_PASSWORD
+        - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWORD
     ports:
-        - "3306:3306"
+        - "127.0.0.1:3306:3306"
     expose:
         - 3306
     volumes:
@@ -15,9 +15,12 @@ mysql:
 apache:
     build: ./lam/
     ports:
-        - "8080:80"
+        - "127.0.0.1:8080:8080"
+    environment:
+        - APACHE_LOG_DIR=/var/log/apache2/
     volumes:
         - /var/www:/var/www
-        - ./lam/apache-conf:/etc/apache2/conf.d
+        - ./lam/apache-conf/:/etc/apache2/conf.d/
+        - /var/log/apache2/:/var/log/apache2/
     links:
         - mysql
