@@ -13,14 +13,25 @@ mysql:
         - /opt/data:/var/lib/mysql
 
 apache:
-    build: ./lam/
+    build: ./lap/
     ports:
-        - "127.0.0.1:8080:8080"
+        - "8080"
+    expose:
+        - "8080"
     environment:
         - APACHE_LOG_DIR=/var/log/apache2/
     volumes:
         - /var/www:/var/www
-        - ./lam/apache-conf/:/etc/apache2/conf.d/
+        - ./lap/apache-conf/:/etc/apache2/conf.d/
         - /var/log/apache2/:/var/log/apache2/
     links:
         - mysql
+
+nginx:
+    build: ./nginx/
+    links:
+        - apache
+    ports:
+        - "80:80"
+    #volumes:
+    #    - ./nginx/conf.d/:/etc/nginx/conf.d/
